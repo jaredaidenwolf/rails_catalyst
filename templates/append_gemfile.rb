@@ -63,6 +63,9 @@ def append_gemfile
   # Install Bullet
   run "rails g bullet:install"
 
+  # Install RSpec
+  run "rails generate rspec:install"
+
   # Conditionally install administrate
   if use_administrate.downcase == 'yes'
     generate("administrate:install")
