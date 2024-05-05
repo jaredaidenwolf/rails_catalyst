@@ -1,4 +1,4 @@
-require_relative "templates/append_gemfile"
+require_relative "templates/append_gemfile_and_install_gems"
 require_relative "templates/append_gitignore"
 require_relative "templates/create_env_file"
 require_relative "templates/setup_header_partials"
@@ -8,7 +8,7 @@ require_relative "templates/setup_ruby_versioning"
 require_relative "templates/setup_version_control"
 
 # Append gems to Gemfile
-append_gemfile
+append_gemfile_and_install_gems
 
 # Setup Ruby versioning
 setup_ruby_versioning

@@ -1,7 +1,6 @@
 def append_gemfile
   gem "honeybadger"
   gem "rack-canonical-host"
-  gem "rspec"
   gem "skylight"
   gem "tailwindcss-rails"
   gem "title"
@@ -47,7 +46,7 @@ def append_gemfile
   use_pundit = ask("Would you like to use Pundit for authorization? [yes/no]")
   use_administrate = ask("Would you like to use Administrate for admin dashboards? [yes/no]")
 
-  gem_list = "\n# Custom gems\n"
+  gem_list = "\n## Custom gems\n"
   gem_list += "gem 'devise'\n" if use_devise.downcase == "yes"
   gem_list += "gem 'pundit'\n" if use_pundit.downcase == "yes"
   gem_list += "gem 'administrate'\n" if use_administrate.downcase == "yes"
@@ -61,13 +60,26 @@ def append_gemfile
   run "rails tailwindcss:install"
 
   # Install Bullet
-  run "rails g bullet:install"
+  run "rails generate bullet:install"
 
   # Install RSpec
   run "rails generate rspec:install"
+
+  # Conditionally install devise
+  if use_devise.downcase == 'yes'
+    generate("devise:install")
+  end
+
+  # Conditionally install pundit
+  if use_pundit.downcase == 'yes'
+    generate("pundit:install")
+  end
 
   # Conditionally install administrate
   if use_administrate.downcase == 'yes'
     generate("administrate:install")
   end
+
+  # Run migrations
+  run "rails db:migrate"
 end
